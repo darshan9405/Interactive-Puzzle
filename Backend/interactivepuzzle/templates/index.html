@@ -2,7 +2,9 @@
 
 <div class="index-container">
   <p1>Hello {{ user }}!</p1>
-  <button class="btn btn-success">Take the assessment</button>
+  <form method="GET" action = "{% url 'interactivepuzzle:instructions' %}">
+    <button type="submit" class="btn btn-success">Take the assessment</button>
+  </form>
 </div>
 
 {% endblock %}

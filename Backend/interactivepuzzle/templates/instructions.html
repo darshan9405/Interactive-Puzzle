@@ -1,0 +1,10 @@
+{% extends 'header.html' %} {% block content %}
+
+<div>
+  <p1>These are the instructions</p1>
+  <form method="GET" action = "{%url 'interactivepuzzle:fetchquestion' %}">
+    <button type="submit" class="btn btn-success">Proceed</button>
+  </form>
+</div>
+
+{% endblock %}

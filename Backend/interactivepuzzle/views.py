@@ -4,7 +4,7 @@ from django.contrib.auth import login, authenticate,logout
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
 from .forms import NewUserForm
-
+from .models import submissions,CustomUser,question
 
 def register_request(request):
     if request.method == "POST":
@@ -48,3 +48,15 @@ def logout_request(request):
         logout(request)
     return login_request(request)
     
+def instructions(request):
+    if request.user.is_authenticated:
+        return render(request,'instructions.html')
+    return login_request(request)
+
+def fetchquestion(request):
+    if request.user.is_authenticated:
+        subs = submissions.objects.filter(user = request.user)
+        currQuestion = len(subs)
+        que = question.objects.filter(id = currQuestion)
+        return render(request,'question.html',context={'question':que})
+    return login_request(request)
