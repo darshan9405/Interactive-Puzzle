@@ -1,7 +1,8 @@
-{% extends 'header.html' %}
+{% extends 'header.html' %} {% block content %}
 
-{% block content %}
-
-<h2>Hello This is the index</h2>
+<div class="index-container">
+  <p1>Hello {{ user }}!</p1>
+  <button class="btn btn-success">Take the assessment</button>
+</div>
 
 {% endblock %}

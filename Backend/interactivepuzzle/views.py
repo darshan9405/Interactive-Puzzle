@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate,logout
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
 from .forms import NewUserForm
@@ -42,3 +42,9 @@ def index(request):
     if request.user.is_authenticated:
         return render(request, 'index.html')
     return login_request(request)
+
+def logout_request(request):
+    if request.user.is_authenticated:
+        logout(request)
+    return login_request(request)
+    

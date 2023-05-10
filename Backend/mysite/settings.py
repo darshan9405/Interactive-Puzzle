@@ -30,7 +30,7 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
-INSTALLED_APPS =[
+INSTALLED_APPS = [
     'interactivepuzzle',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -83,6 +83,7 @@ DATABASES = {
     }
 }
 
+AUTH_USER_MODEL = 'interactivepuzzle.CustomUser'
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
