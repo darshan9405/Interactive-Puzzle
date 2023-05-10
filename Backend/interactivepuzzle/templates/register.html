@@ -7,14 +7,14 @@
 <div class="form">
   <form method="POST">
     {% csrf_token %}
-    {% for field in login_form %}
+    {% for field in register_form %}
       <div>
         <label for="{{ field.name}}">{{ field.label}}</label>{{ field }}
      </div>
     {% endfor %}
     <button class="btn btn-primary" type="submit">Login</button>
   </form>
-  <p class="text-center">Don't have an account? <a href="/register">Create an account</a>.</p>
+  <p class="text-center">Already have an account? <a href="/login">Login Instead</a>.</p>
 </div>
 </div>
 
