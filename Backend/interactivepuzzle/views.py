@@ -75,9 +75,20 @@ def fetchquestion(request):
         user_session = session.objects.filter(user=request.user)
         if len(user_session) != 0:
             user_session = user_session.filter(question=que)
+            found = False
             for u in user_session:
                 user_session = u
+                found = True
                 break
+            if not found:
+                user_session = session()
+                user_session.user = user
+                user_session.question = que
+                user_session.startTime = timezone.now()
+
+                user_session.save()
+            arr = q.clues.split('>')
+            que.clues = arr
             return render(request, 'question.html', context={'question': que, 'session': user_session})
         if len(user_session) == 0 and createSession:
             # create a new session for the question
@@ -86,5 +97,53 @@ def fetchquestion(request):
             user_session.user = user
             user_session.startTime = timezone.now()
             user_session.save()
+
+        arr = q.clues.split('>')
+        que.clues = arr
+        print(que)
         return render(request, 'question.html', context={'question': que, 'session': user_session})
+    return login_request(request)
+
+
+def submission_request(request, id):
+    if request.GET:
+        return fetchquestion(request)
+    if request.user.is_authenticated:
+        currQuestion = submissions.objects.filter(
+            user=request.user).filter(status=True)
+        currQuestionId = len(currQuestion) + 1
+        if id != currQuestionId:
+            return fetchquestion(request)
+        else:
+            data = request.POST.dict()
+            answer = data.get("answer")
+            user = CustomUser.objects.get(username=request.user)
+            quesdata = question.objects.get(id=id)
+            print(quesdata)
+            if quesdata.answer == answer:
+                currSubmission = submissions()
+                currSubmission.question = quesdata
+                currSubmission.user = user
+                currSubmission.status = True
+                currSubmission.timeStart = timezone.now()
+                currSubmission.timeEnd = timezone.now()
+                currSubmission.score = 100
+                currSubmission.save()
+                prevSession = session.objects.filter(
+                    user=request.user).filter(question=quesdata)
+                for s in prevSession:
+                    prevSession = s
+                prevSession.endTime = timezone.now()
+                prevSession.save()
+                return fetchquestion(request)
+            else:
+                currSubmission = submissions()
+                currSubmission.question = quesdata
+                currSubmission.user = user
+                currSubmission.status = False
+                currSubmission.timeStart = timezone.now()
+                currSubmission.timeEnd = timezone.now()
+                currSubmission.score = 0
+                currSubmission.save()
+                return fetchquestion(request)
     return login_request(request)

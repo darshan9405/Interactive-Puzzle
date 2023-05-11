@@ -1,12 +1,22 @@
 {% extends "header.html" %} {% block content %} {% load crispy_forms_tags %}
 <!--Login-->
 <div class="question-container">
+  <h3>{{question.question_title}}</h3>
   {{question.question_text}}
-  <div>Question Image</div>
+  <img style="width:400px;height:300px;" src="{{question.image}}" alt="Image for the question"></img>
   <div>Clues:</div>
+  {% for clue in question.clues %}
+  <div>
+    <p>{{ clue }}</p>
+  </div>
+  {% endfor %}
   <div>Description</div>
-  <div>Input Field</div>
-  <button>Submit</button>
+  <p>{{ question.question_description }}</p>
+  <form method="POST" action = "{% url 'interactivepuzzle:submission' id=question.id %}">
+    {% csrf_token %}
+    <input type="text" name="answer" placeholder="Enter the answer here!"></input>
+    <button method="submit">Submit</button>
+  </form>
 </div>
 
 {% endblock %}

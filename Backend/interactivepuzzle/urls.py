@@ -10,5 +10,6 @@ urlpatterns = [
     path("login/", views.login_request, name="login"),
     path("logout/", views.logout_request, name="logout"),
     path("instructions/",views.instructions,name = "instructions"),
-    path("question",views.fetchquestion,name = "fetchquestion")
+    path("question",views.fetchquestion,name = "fetchquestion"),
+    path("submission/<int:id>/",views.submission_request,name = "submission")
 ]
