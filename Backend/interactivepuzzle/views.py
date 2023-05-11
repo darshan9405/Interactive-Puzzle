@@ -100,7 +100,6 @@ def fetchquestion(request):
 
         arr = q.clues.split('>')
         que.clues = arr
-        print(que)
         return render(request, 'question.html', context={'question': que, 'session': user_session})
     return login_request(request)
 
@@ -119,18 +118,19 @@ def submission_request(request, id):
             answer = data.get("answer")
             user = CustomUser.objects.get(username=request.user)
             quesdata = question.objects.get(id=id)
-            print(quesdata)
             if quesdata.answer == answer:
+                prevSession = session.objects.filter(
+                    user=request.user).filter(question=quesdata)
                 currSubmission = submissions()
                 currSubmission.question = quesdata
                 currSubmission.user = user
                 currSubmission.status = True
-                currSubmission.timeStart = timezone.now()
+                for s in prevSession:
+                    currSubmission.timeStart = s.startTime
+                    break
                 currSubmission.timeEnd = timezone.now()
                 currSubmission.score = 100
                 currSubmission.save()
-                prevSession = session.objects.filter(
-                    user=request.user).filter(question=quesdata)
                 for s in prevSession:
                     prevSession = s
                 prevSession.endTime = timezone.now()
@@ -147,3 +147,23 @@ def submission_request(request, id):
                 currSubmission.save()
                 return fetchquestion(request)
     return login_request(request)
+
+
+def fetch_leaderboard(request):
+    subs = submissions.objects.filter(status=True)
+    users = CustomUser.objects.all()
+    userData = {}
+    for user in users:
+        userData[user.username] = {'score': 0, 'time': 0}
+    for sub in subs:
+        userData[sub.user.username]['score'] = userData[sub.user.username]['score'] + sub.score
+        timeTaken = sub.timeEnd - sub.timeStart
+        userData[sub.user.username]['time'] = int(
+            userData[sub.user.username]['time'] + (timeTaken.seconds)/60)
+    sorted_data = sorted(
+        userData.items(), key=lambda x: (-1*x[1]['score'], -1*x[1]['time']))
+    final_data = []
+    for data in sorted_data:
+        final_data.append([data[0], data[1]['score'], data[1]['time']])
+    context = {'data': final_data}
+    return render(request, 'leaderboard.html', context=context)
