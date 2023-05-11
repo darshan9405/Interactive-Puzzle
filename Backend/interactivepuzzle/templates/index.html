@@ -1,10 +1,142 @@
 {% extends 'header.html' %} {% block content %}
+<style>
+  .index-container {
+    display: flex;
+    width: 80vw;
+    min-height: 80vh;
+    margin: 2vh auto;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
 
+  .username {
+    font-size: 2rem;
+    color: rgb(255, 255, 255);
+    padding: 1vh 1vw;
+    margin: 1vh 1vw;
+  }
+
+  .des {
+    font-size: 1rem;
+    color: floralwhite;
+    text-align: center;
+  }
+
+  .features {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    padding: 1vh 1vw;
+    margin: 3vh 1vw;
+    justify-content: center;
+    align-content: center;
+  }
+
+  .service-card {
+    height: 80%;
+    padding: 2em 1.5em;
+    border-radius: 5px;
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.12);
+    cursor: pointer;
+    transition: 0.5s;
+    position: relative;
+    z-index: 2;
+    overflow: hidden;
+    background: #fff;
+    margin: 1vh 1vw;
+  }
+
+  h3 {
+    font-size: 20px;
+    text-transform: capitalize;
+    font-weight: 600;
+    color: #1f194c;
+    margin: 1em 0;
+    text-align: center;
+    z-index: 3;
+  }
+
+  .icon-wrapper {
+    position: relative;
+    margin: auto;
+    font-size: 30px;
+    height: 2.5em;
+    width: 2.5em;
+    color: #ffffff;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    transition: 0.5s;
+    z-index: 3;
+    align-content: center;
+    justify-content: center;
+  }
+
+  .icon-wrapper img {
+    width: 100px;
+    height: 100px;
+  }
+
+  @media screen and (max-width:1200px) {
+    .features {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding: 1vh 1vw;
+      margin: 3vh 1vw;
+    }
+  }
+
+  @media screen and (max-width:400px) {
+    .features {
+      display: grid;
+      grid-template-columns: 1fr;
+      padding: 1vh 1vw;
+      margin: 3vh 1vw;
+    }
+  }
+</style>
 <div class="index-container">
-  <p1>Hello {{ user }}!</p1>
-  <form method="GET" action = "{% url 'interactivepuzzle:instructions' %}">
+  <p class="username">Hello {{ user }}!</p>
+  <p class="des">
+    Welcome to the Logical Aptitude Challenge, a thrilling puzzle game designed
+    to test and enhance your logical thinking skills.<br />Are you ready to
+    embark on a journey of mind-bending puzzles and unravel the secrets of
+    logic? <br />Put your problem-solving abilities to the test and see if you
+    can conquer each challenge that awaits!
+  </p>
+  <form method="GET" action="{% url 'interactivepuzzle:instructions' %}">
     <button type="submit" class="btn btn-success">Take the assessment</button>
   </form>
+
+  <div class="features">
+    <div class="service-card">
+      <div class="icon-wrapper">
+        <img src="https://cdn.icon-icons.com/icons2/2474/PNG/512/puzzle_icon_149707.png"></img>
+      </div>
+      <h3>Engaging and Interactive Puzzles</h3>`
+    </div>
+    <div class="service-card">
+      <div class="icon-wrapper">
+        <img
+          src="https://uploads-ssl.webflow.com/6046c7ac837ca2619771d513/62fc443397e4f6e98b6bb7d0_track-progress.png"></img>
+      </div>
+      <h3>Track Your Progress</h3>
+    </div>
+    <div class="service-card">
+      <div class="icon-wrapper">
+        <img
+          src="https://img.freepik.com/premium-vector/person-choosing-answer-online-pensive-young-man-holding-tablet-while-giving-answers-online_697837-283.jpg?w=2000"></img>
+      </div>
+      <h3>Resume Anytime, Anywhere</h3>
+    </div>
+    <div class="service-card">
+      <div class="icon-wrapper">
+        <img
+          src="https://static.vecteezy.com/system/resources/previews/000/644/965/original/vector-brain-light-bulb-icon.jpg"></img>
+      </div>
+      <h3>Sharpen Your Logical Aptitude</h3>
+    </div>
+  </div>
 </div>
 
 {% endblock %}

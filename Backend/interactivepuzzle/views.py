@@ -167,3 +167,5 @@ def fetch_leaderboard(request):
         final_data.append([data[0], data[1]['score'], data[1]['time']])
     context = {'data': final_data}
     return render(request, 'leaderboard.html', context=context)
+
+

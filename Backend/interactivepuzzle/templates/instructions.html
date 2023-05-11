@@ -1,10 +1,98 @@
 {% extends 'header.html' %} {% block content %}
-
-<div>
-  <p1>These are the instructions</p1>
-  <form method="GET" action = "{%url 'interactivepuzzle:fetchquestion' %}">
-    <button type="submit" class="btn btn-success">Proceed</button>
-  </form>
+<style>
+  .int_container {
+    width: 75vw;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    margin: 2vh auto;
+    font-size: 1.1rem;
+    min-height: 79vh;
+  }
+  .int_header {
+    padding: 1vh 1vw;
+    text-align: center;
+    margin: 1vh 1vw;
+    background-color: white;
+    color: green;
+    width: 95%;
+  }
+  .int_ul li {
+    margin: 1vh 1vw;
+    width: 95%;
+    list-style: inside;
+  }
+  .int_form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .int_button {
+    width: 8vw;
+  }
+  .data {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  
+  @media screen and (max-width: 1200px) {
+    .int_button {
+      width: 25vw;
+    }
+  }
+  @media screen and (max-width: 800px) {
+    .int_button {
+      width: 25vw;
+    }
+    .int_container {
+      width: 100vw;
+      margin: 1vh 1vw;
+    }
+  }
+</style>
+<div class="int_container">
+  <div class="data">
+    <h3 class="int_header">Instructions</h3>
+    <ul class="int_ul">
+      <li>
+        The objective of this puzzle game is to solve a series of interactive
+        puzzles and demonstrate your logical aptitude.
+      </li>
+      <li>
+        If you haven't already registered, create an account on the website.
+        Provide the required information and follow the registration process.
+      </li>
+      <li>
+        Analyze the puzzle and use your logical thinking skills to find a
+        solution. Depending on the puzzle type, you may need to arrange objects,
+        find patterns, complete sequences, or make logical deductions.
+      </li>
+      <li>
+        After completing the puzzle game, view your final score and see how you
+        rank among other players. The score could be based on accuracy, speed,
+        or a combination of factors.
+      </li>
+      <li>
+        If you encounter a network issue, follow these steps to resume from
+        where you left off:
+        <ul>
+          <li>Check your internet connection.</li>
+          <li>Reload the page.</li>
+          <li>Login again with your account.</li>
+          <li>Your previous progress will be retrieved.</li>
+        </ul>
+      </li>
+    </ul>
+    <form
+      class="int_form"
+      method="GET"
+      action="{%url 'interactivepuzzle:fetchquestion' %}"
+    >
+      <button type="submit" class="int_button btn btn-success">Proceed</button>
+    </form>
+  </div>
 </div>
 
 {% endblock %}
