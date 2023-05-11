@@ -161,7 +161,7 @@ def fetch_leaderboard(request):
         userData[sub.user.username]['time'] = int(
             userData[sub.user.username]['time'] + (timeTaken.seconds)/60)
     sorted_data = sorted(
-        userData.items(), key=lambda x: (-1*x[1]['score'], -1*x[1]['time']))
+        userData.items(), key=lambda x: (-1*x[1]['score'], x[1]['time']))
     final_data = []
     for data in sorted_data:
         final_data.append([data[0], data[1]['score'], data[1]['time']])

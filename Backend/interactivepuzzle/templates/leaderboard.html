@@ -7,10 +7,24 @@
     </div>
     <div id="leaderboard">
       <table>
+        <tr>
+          <td class="number">#</td>
+          <td class="name">Username</td>
+          <td class="name">Time</td>
+          <td class="points">
+            Score
+            {% if forloop.counter == 1 %}
+            <img class="gold-medal"
+              src="https://github.com/malunaridev/Challenges-iCodeThis/blob/master/4-leaderboard/assets/gold-medal.png?raw=true"
+              alt="gold medal" />
+            {% endif %}
+          </td>
+        </tr>
         {% for sublist in data %}
         <tr>
           <td class="number">{{forloop.counter}}</td>
           <td class="name">{{sublist.0}}</td>
+          <td class="name">{{sublist.2}}</td>
           <td class="points">
             {{sublist.1}}
             {% if forloop.counter == 1 %}
