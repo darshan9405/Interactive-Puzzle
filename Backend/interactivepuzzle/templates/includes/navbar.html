@@ -24,6 +24,7 @@
       </li>
     </ul>
     {% if user.is_authenticated %}
+    <div id="timer"> </div>
     <form method="POST" action="{% url 'interactivepuzzle:logout' %}">
       {% csrf_token %}
       <button type="submit" class="btn btn-danger">Logout</button>

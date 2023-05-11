@@ -67,3 +67,11 @@ body {
 .form .register-form {
   display: none;
 }
+#timer{
+  padding:1vh 1vw;
+  margin:1vh 1vw;
+}
+.timer_p{
+  padding:1vh 1vw;
+  margin:1vh 1vw;
+}

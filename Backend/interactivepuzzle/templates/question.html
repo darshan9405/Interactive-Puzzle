@@ -1,13 +1,12 @@
 {% extends "header.html" %} {% block content %} {% load crispy_forms_tags %}
 <!--Login-->
 <div class="question-container">
-  {% for q in question %} {{q.question_text}}
+  {{question.question_text}}
   <div>Question Image</div>
   <div>Clues:</div>
   <div>Description</div>
   <div>Input Field</div>
   <button>Submit</button>
-  {% endfor %}
 </div>
 
 {% endblock %}
