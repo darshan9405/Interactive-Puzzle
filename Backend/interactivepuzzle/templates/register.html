@@ -1,21 +1,32 @@
 {% extends "header.html" %}
 
-{% block content %}      
-{% load crispy_forms_tags %}     
-<!--Login--> 
-<div class = "login-page">
-<div class="form">
-  <form method="POST">
-    {% csrf_token %}
-    {% for field in register_form %}
+{% block content %}
+{% load crispy_forms_tags %}
+<!--Login-->
+<div class="login-page">
+  {% if messages %}
+  <p class="messages" style="display:flex;flex-direction: column;justify-content: center;align-items: center;">
+    {% for message in messages %}
+    {% if 'registration_failure' in message.tags %}
+  <div class="alert alert-info alert-dismissible fade show js-alert" role="alert">
+    {{ message }}
+  </div>
+  {% endif %}
+  {% endfor %}
+  </p>
+  {% endif %}
+  <div class="form">
+    <form method="POST">
+      {% csrf_token %}
+      {% for field in register_form %}
       <div>
         <label for="{{ field.name}}">{{ field.label}}</label>{{ field }}
-     </div>
-    {% endfor %}
-    <button class="btn btn-primary" type="submit">Login</button>
-  </form>
-  <p class="text-center">Already have an account? <a href="/login">Login Instead</a>.</p>
-</div>
+      </div>
+      {% endfor %}
+      <button class="btn btn-primary" type="submit">Login</button>
+    </form>
+    <p class="text-center">Already have an account? <a href="/login">Login Instead</a>.</p>
+  </div>
 </div>
 
 {% endblock %}

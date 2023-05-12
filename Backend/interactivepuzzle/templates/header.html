@@ -29,6 +29,15 @@
       {% block content %} {% endblock %}
     </section>
     {% include "includes/footer.html" %}
+    <script>
+      if (document.querySelector('.js-alert')) {
+        document.querySelectorAll('.js-alert').forEach(function ($el) {
+          setTimeout(() => {
+            $el.style.display = 'none';
+          }, 2000);
+        });
+      }
+    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script src="{% static 'js/timer.js' %}"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"

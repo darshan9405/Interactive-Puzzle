@@ -96,6 +96,7 @@
   }
 </style>
 <div class="index-container">
+  {% if user.is_authenticated %}
   <p class="username">Hello {{ user }}!</p>
   <p class="des">
     Welcome to the Logical Aptitude Challenge, a thrilling puzzle game designed
@@ -137,6 +138,6 @@
       <h3>Sharpen Your Logical Aptitude</h3>
     </div>
   </div>
+  {% endif %}
 </div>
-
 {% endblock %}

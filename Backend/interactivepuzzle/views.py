@@ -15,10 +15,11 @@ def register_request(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            messages.success(request, "Registration successful.")
+            messages.success(request, "Registration successful.",
+                             extra_tags='login_success')
             return redirect("interactivepuzzle:index")
         messages.error(
-            request, "Unsuccessful registration. Invalid information.")
+            request, "Unsuccessful registration. Invalid information.", extra_tags='registration_failure')
     form = NewUserForm()
     return render(request=request, template_name="register.html", context={"register_form": form})
 
@@ -32,12 +33,15 @@ def login_request(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                messages.info(request, f"You are now logged in as {username}.")
+                messages.info(
+                    request, f"You are now logged in as {username}.", extra_tags="login_success")
                 return redirect("interactivepuzzle:index")
             else:
-                messages.error(request, "Invalid username or password.")
+                messages.error(
+                    request, "Invalid username or password.", extra_tags="login_failure")
         else:
-            messages.error(request, "Invalid username or password.")
+            messages.error(request, "Invalid username or password.",
+                           extra_tags="login_failure")
     form = AuthenticationForm()
     return render(request=request, template_name="login.html", context={"login_form": form})
 
@@ -167,5 +171,3 @@ def fetch_leaderboard(request):
         final_data.append([data[0], data[1]['score'], data[1]['time']])
     context = {'data': final_data}
     return render(request, 'leaderboard.html', context=context)
-
-
