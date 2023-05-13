@@ -66,10 +66,13 @@ def instructions(request):
 
 def fetchquestion(request):
     if request.user.is_authenticated:
+        ques = question.objects.all()
         user = CustomUser.objects.get(username=request.user)
         subs = submissions.objects.filter(
             user=request.user).filter(status=True)
         currQuestion = len(subs) + 1
+        if currQuestion >= len(ques):
+            return get_analytics(request)
         que = question.objects.filter(id=currQuestion)
         createSession = False
         for q in que:
