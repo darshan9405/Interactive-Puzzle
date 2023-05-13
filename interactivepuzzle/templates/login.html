@@ -3,7 +3,13 @@
 {% block content %}
 {% load crispy_forms_tags %}
 <!--Login-->
-
+<style>
+  @media (max-width: 420px) {
+    .login-page {
+      width: 90vw !important;
+    }
+  }
+</style>
 <div class="login-page" style="display:flex;flex-direction: column;justify-content: center;align-items: center;">
   {% if messages %}
   <p class="messages" style="display:flex;flex-direction: column;justify-content: center;align-items: center;">
