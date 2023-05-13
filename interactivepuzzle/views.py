@@ -68,6 +68,8 @@ def fetchquestion(request):
     if request.user.is_authenticated:
         ques = question.objects.all()
         user = CustomUser.objects.get(username=request.user)
+        if user.took_test:
+            return render(request, 'deadend.html')
         subs = submissions.objects.filter(
             user=request.user).filter(status=True)
         currQuestion = len(subs) + 1
@@ -115,6 +117,9 @@ def submission_request(request, id):
     if request.GET:
         return fetchquestion(request)
     if request.user.is_authenticated:
+        usr = CustomUser.objects.get(username=request.user)
+        if usr.took_test:
+            return render(request, 'deadend.html')
         currQuestion = submissions.objects.filter(
             user=request.user).filter(status=True)
         currQuestionId = len(currQuestion) + 1
@@ -154,8 +159,16 @@ def submission_request(request, id):
                 currSubmission.timeEnd = timezone.now()
                 currSubmission.score = 0
                 currSubmission.save()
+                subs = submissions.objects.filter(
+                    user=user).filter(question=quesdata)
+                chances = 3 - len(subs)
+                if chances == 0:
+                    currUser = CustomUser.objects.get(username=request.user)
+                    currUser.took_test = True
+                    currUser.save()
+                    return render(request, 'deadend.html')
                 messages.info(
-                    request, f"{answer} is the Wrong Answer :(", extra_tags="wrong_submission")
+                    request, f"{answer} is the Wrong Answer :( {chances} more lives!", extra_tags="wrong_submission")
                 return fetchquestion(request)
     return login_request(request)
 
