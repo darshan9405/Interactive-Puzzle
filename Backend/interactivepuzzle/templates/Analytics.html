@@ -1,0 +1,64 @@
+{% extends "header.html" %} {% block content %} {% load crispy_forms_tags %}
+
+<style>
+    .a_accuracy,
+    .a_count,
+    .a_timename,
+    .a_status,
+    .a_score {
+        text-align: center;
+    }
+
+    @media screen and (max-width:950px) {
+        .a_timename {
+            display: none;
+        }
+
+    }
+
+    @media screen and (max-width:950px) {
+        .a_accuracy {
+            display: none;
+        }
+    }
+</style>
+<div class="leaderboard-container">
+    {% if user.is_authenticated %}
+    <main>
+        <div id="header">
+            <h1>Score Board</h1>
+        </div>
+        <div id="leaderboard">
+            <table>
+                <tr>
+                    <td class="a_count">Que No.</td>
+                    <td class="a_score">Score</td>
+                    <td class="a_timename">Time (min)</td>
+                    <td class="a_accuracy">Accuracy (%)</td>
+                    <td class="a_status">Status</td>
+                </tr>
+                {% for sublist in data %}
+                <tr>
+                    <td class="a_count">{{forloop.counter}}</td>
+                    <td class="a_score">{{sublist.0}}</td>
+                    <td class="a_timename">{{sublist.2}}</td>
+                    <td class="a_accuracy">
+                        {{sublist.3}}
+                    </td>
+                    <td class="a_status">
+                        {% if sublist.4 == 'Accepted' %}
+                        AC
+                        {% elif sublist.4 == 'Wrong Answer' %}
+                        WA
+                        {% else %}
+                        NA
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </main>
+    {% endif %}
+</div>
+{% endblock %}

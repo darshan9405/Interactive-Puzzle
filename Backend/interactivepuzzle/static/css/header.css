@@ -188,22 +188,6 @@ td {
   gap: 2rem;
 }
 
-.exit {
-  width: 11rem;
-  height: 3rem;
-  font-family: "Rubik", sans-serif;
-  font-size: 1.3rem;
-  text-transform: uppercase;
-  color: #7e7f86;
-  border: 0;
-  background-color: #fff;
-  border-radius: 2rem;
-  cursor: pointer;
-}
-
-.exit:hover {
-  border: 0.1rem solid #5c5be5;
-}
 .leaderboard-container {
   width: 75vw;
   min-height: 81vh;
@@ -213,24 +197,6 @@ td {
   margin: 1vh auto;
   padding: 1vh 1vw;
 }
-.continue {
-  width: 11rem;
-  height: 3rem;
-  font-family: "Rubik", sans-serif;
-  font-size: 1.3rem;
-  color: #fff;
-  text-transform: uppercase;
-  background-color: #5c5be5;
-  border: 0;
-  border-bottom: 0.2rem solid #3838b8;
-  border-radius: 2rem;
-  cursor: pointer;
-}
-
-.continue:active {
-  border-bottom: 0;
-}
-
 @media (max-width: 740px) {
   * {
     font-size: 1.2rem;

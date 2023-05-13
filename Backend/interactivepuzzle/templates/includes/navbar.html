@@ -7,6 +7,7 @@
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    {% if user.is_authenticated %}
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
         <a class="nav-link" href="{% url 'interactivepuzzle:index' %}">Home</a>
@@ -14,8 +15,11 @@
       <li class="nav-item">
         <a class="nav-link" href="{% url 'interactivepuzzle:leaderboard' %}">Leaderboard</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'interactivepuzzle:analytics' %}">Score Board</a>
+      </li>
     </ul>
-    {% if user.is_authenticated %} {% if session.startTime %}
+    {% if session.startTime %}
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
         <div id="timer"></div>
@@ -27,6 +31,11 @@
       <button type="submit" class="btn btn-danger">Logout</button>
     </form>
     {% else %}
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'interactivepuzzle:leaderboard' %}">Leaderboard</a>
+      </li>
+    </ul>
     <form method="POST" action="{% url 'interactivepuzzle:login' %}">
       {% csrf_token %}
       <button type="submit" class="btn btn-success">Login</button>

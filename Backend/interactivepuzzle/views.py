@@ -15,7 +15,7 @@ def register_request(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            messages.success(request, "Registration successful.",
+            messages.success(request, "Registration successful!",
                              extra_tags='login_success')
             return redirect("interactivepuzzle:index")
         messages.error(
@@ -34,7 +34,7 @@ def login_request(request):
             if user is not None:
                 login(request, user)
                 messages.info(
-                    request, f"You are now logged in as {username}.", extra_tags="login_success")
+                    request, f"Successfully logged in as {username}!", extra_tags="login_success")
                 return redirect("interactivepuzzle:index")
             else:
                 messages.error(
@@ -122,6 +122,8 @@ def submission_request(request, id):
             answer = data.get("answer")
             user = CustomUser.objects.get(username=request.user)
             quesdata = question.objects.get(id=id)
+            if answer == '':
+                return fetchquestion(request)
             if quesdata.answer == answer:
                 prevSession = session.objects.filter(
                     user=request.user).filter(question=quesdata)
@@ -149,6 +151,8 @@ def submission_request(request, id):
                 currSubmission.timeEnd = timezone.now()
                 currSubmission.score = 0
                 currSubmission.save()
+                messages.info(
+                    request, f"{answer} is the Wrong Answer :(", extra_tags="wrong_submission")
                 return fetchquestion(request)
     return login_request(request)
 
@@ -171,3 +175,32 @@ def fetch_leaderboard(request):
         final_data.append([data[0], data[1]['score'], data[1]['time']])
     context = {'data': final_data}
     return render(request, 'leaderboard.html', context=context)
+
+
+def get_analytics(request):
+    queData = question.objects.all()
+    user = CustomUser.objects.get(username=request.user)
+
+    userData = []
+    # score,submissions,time,accuracy,status
+    for que in queData:
+        subs = submissions.objects.filter(user=user).filter(question=que)
+        if len(subs) == 0:
+            userData.append([0, 0, 0, 0, 'UnAttempted'])
+        else:
+            ac = submissions.objects.filter(user=user).filter(
+                question=que).filter(status=True)
+            if len(ac) == 0:
+                currSession = session.objects.get(user=user, question=que)
+                timedelta = timezone.now() - currSession.startTime
+                timeTaken = int(timedelta.seconds/60)
+                userData.append([0, len(subs), timeTaken, 0, 'Wrong Answer'])
+            else:
+                lastSub = submissions.objects.get(
+                    user=user, question=que, status=True)
+                timedelta = lastSub.timeEnd - lastSub.timeStart
+                timeTaken = int(timedelta.seconds/60)
+                userData.append([100, len(subs), timeTaken,
+                                int(100/(len(subs))), 'Accepted'])
+    context = {'data': userData}
+    return render(request, 'Analytics.html', context=context)

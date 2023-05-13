@@ -96,6 +96,17 @@
   }
 </style>
 <div class="index-container">
+  {% if messages %}
+  <p class="messages" style="display:flex;flex-direction: column;justify-content: center;align-items: center;">
+    {% for message in messages %}
+    {% if 'login_success' in message.tags %}
+  <div class="alert alert-info alert-dismissible fade show js-alert" role="alert">
+    {{ message }}
+  </div>
+  {% endif %}
+  {% endfor %}
+  </p>
+  {% endif %}
   {% if user.is_authenticated %}
   <p class="username">Hello {{ user }}!</p>
   <p class="des">
