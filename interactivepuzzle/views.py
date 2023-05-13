@@ -71,7 +71,7 @@ def fetchquestion(request):
         subs = submissions.objects.filter(
             user=request.user).filter(status=True)
         currQuestion = len(subs) + 1
-        if currQuestion >= len(ques):
+        if currQuestion > len(ques):
             return get_analytics(request)
         que = question.objects.filter(id=currQuestion)
         createSession = False

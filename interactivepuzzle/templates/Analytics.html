@@ -1,5 +1,6 @@
 {% extends "header.html" %} {% block content %} {% load crispy_forms_tags %}
-
+{% load static %}
+<script src="https://cdn.anychart.com/releases/8.10.0/js/anychart-base.min.js"></script>
 <style>
     .a_accuracy,
     .a_count,
@@ -9,11 +10,19 @@
         text-align: center;
     }
 
+    #container {
+        width: 100%;
+        height: 50vh;
+    }
+
     @media screen and (max-width:950px) {
         .a_timename {
             display: none;
         }
 
+        h1 {
+            font-size: 1.5rem;
+        }
     }
 
     @media screen and (max-width:950px) {
@@ -61,4 +70,36 @@
     </main>
     {% endif %}
 </div>
+<div class="leaderboard-container" style="display: flex;flex-direction: column;">
+    {% if user.is_authenticated %}
+    <h1>Accuracy throughout the questions</h1>
+    <div id="container"></div>
+    {% endif %}
+</div>
+<script>
+    function getData() {
+        var data = []
+        const backendData = "{{data}}"
+        mydata = backendData.split(",")
+        let st = 3
+        do {
+            let num = parseInt(mydata[st], 10);
+            data.push(num)
+            st += 5;
+        } while (st < mydata.length)
+        var finalData = []
+        for (let i = 1; i <= data.length; i++) {
+            finalData.push([i, data[i]])
+        }
+        return finalData;
+    }
+    var dataSet = anychart.data.set(getData());
+    var seriesData = dataSet.mapAs({ x: 0, value: 1 });
+    var chart = anychart.line();
+    chart.title('Accuracy vs Question');
+    chart.yAxis().title('% of Accuracy');
+    var lineChart = chart.line(seriesData);
+    chart.container('container');
+    chart.draw();
+</script>
 {% endblock %}
