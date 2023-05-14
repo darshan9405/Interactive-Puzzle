@@ -105,5 +105,20 @@
 </div>
 <div>
   <h3>Screenshots</h3>
-  <img></img>
+  <p>Login Page</p>
+  <img src = "./screenshots/login.png"></img>
+  <p>Registration Page</p>
+  <img src = "./screenshots/register.png"></img>
+  <p>Home Page</p>
+  <img src = "./screenshots/home.png"></img>
+  <p>Instructions Page</p>
+  <img src = "./screenshots/inst.png"></img>
+  <p>Question Page</p>
+  <img src = "./screenshots/question.png"></img>
+  <p>Leaderboard</p>
+  <img src = "./screenshots/leaderboard.png"></img>
+  <p>Scoreboard</p>
+  <img src = "./screenshots/score.png"></img>
+  <p>Deadend</p>
+  <img src = "./screenshots/dend.png"></img>
 </div>
