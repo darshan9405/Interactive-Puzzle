@@ -1,6 +1,6 @@
 # Elitmus-Task
 
-<h3>Assignment - Puzzle Application</h3>
+<h3>Elite - Puzzle Application</h3>
 <p>Site is deployed at <a href = "https://darshan9405.pythonanywhere.com">Link</a></p>
 <div>
   <p>Problem Statement</p>
@@ -60,6 +60,7 @@
     <li>Scoreboard (displays Time-taken,Score,Accuracy and status)</li>
     <li>user Analytics (line chart of accuracy throughout the questions)</li>
     <li>SQL Database (sqlite)</li>
+    <li>Responsive website</li>
   </ul>
 </div>
 
@@ -102,4 +103,7 @@
     </li>
   </ul>
 </div>
-
+<div>
+  <h3>Screenshots</h3>
+  <img></img>
+</div>
