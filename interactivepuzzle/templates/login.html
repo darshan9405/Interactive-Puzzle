@@ -27,7 +27,7 @@
       {% csrf_token %}
       {% for field in login_form %}
       <div>
-        <label for="{{ field.name}}">{{ field.label}}</label>{{ field }}
+        <label for="{{ field.name }}">{{ field.label}}</label>{{ field }}
       </div>
       {% endfor %}
       <button class="btn btn-primary" type="submit">Login</button>
