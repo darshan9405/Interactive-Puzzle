@@ -1,5 +1,17 @@
 {% extends "header.html" %} {% block content %} {% load crispy_forms_tags %}
 <!--Login-->
+<style>
+  @media (max-width: 740px) {
+    .time {
+      display: none;
+    }
+
+    .name {
+      text-align: left;
+      font-size: 1rem;
+    }
+  }
+</style>
 <div class="leaderboard-container">
   <main>
     <div id="header">
@@ -10,7 +22,7 @@
         <tr>
           <td class="number">#</td>
           <td class="name">Username</td>
-          <td class="name">Time</td>
+          <td class="name time">Time</td>
           <td class="points">
             Score
             {% if forloop.counter == 1 %}
@@ -24,7 +36,7 @@
         <tr>
           <td class="number">{{forloop.counter}}</td>
           <td class="name">{{sublist.0}}</td>
-          <td class="name">{{sublist.2}}</td>
+          <td class="name time">{{sublist.2}}</td>
           <td class="points">
             {{sublist.1}}
             {% if forloop.counter == 1 %}
